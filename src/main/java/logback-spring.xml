@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+	<include
+		resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+	<springProfile name="dev">
+
+		<appender name="CONSOLE"
+			class="ch.qos.logback.core.ConsoleAppender">
+			<layout class="ch.qos.logback.classic.PatternLayout">
+				<Pattern>
+					%d{HH:mm:ss.SSS} [%t] %m%n
+				</Pattern>
+			</layout>
+		</appender>
+
+		<appender name="FILE_ROLLING"
+			class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>D:/Workstation/Logs/jzl-lab.log</file>
+
+			<rollingPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				<fileNamePattern>D:/Workstation/Logs/archived/jzl-lab.%d{yyyy-MM-dd}.%i.log
+				</fileNamePattern>
+				<!-- each archived file, size max 10MB -->
+				<maxFileSize>10MB</maxFileSize>
+				<!-- total size of all archive files, if total size > 20GB, it will delete 
+					old archived file -->
+				<totalSizeCap>100MB</totalSizeCap>
+				<!-- 60 days to keep -->
+				<maxHistory>30</maxHistory>
+			</rollingPolicy>
+
+			<encoder>
+				<pattern>%d [%t] %m%n</pattern>
+			</encoder>
+		</appender>
+
+		<logger name="org.springframework" level="ERROR" />
+		<logger name="com.digital.labapi" level="INFO" />
+		<root level="INFO">
+			<appender-ref ref="CONSOLE" />
+			<appender-ref ref="FILE_ROLLING" />
+		</root>
+	</springProfile>
+
+	<springProfile name="prod">
+
+		<appender name="FILE_ROLLING"
+			class="ch.qos.logback.core.rolling.RollingFileAppender">
+			<file>D:/Workstation/Logs/jzl-lab.log</file>
+
+			<rollingPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+				<fileNamePattern>D:/Workstation/Logs/archived/jzl-lab.%d{yyyy-MM-dd}.%i.log
+				</fileNamePattern>
+				<!-- each archived file, size max 10MB -->
+				<maxFileSize>10MB</maxFileSize>
+				<!-- total size of all archive files, if total size > 20GB, it will delete 
+					old archived file -->
+				<totalSizeCap>100MB</totalSizeCap>
+				<!-- 60 days to keep -->
+				<maxHistory>30</maxHistory>
+			</rollingPolicy>
+
+			<encoder>
+				<pattern>%d [%t] %m%n</pattern>
+			</encoder>
+		</appender>
+
+		<logger name="org.springframework" level="ERROR" />
+		<logger name="com.digital.labapi" level="INFO" />
+		<root level="INFO">
+			<appender-ref ref="FILE_ROLLING" />
+		</root>
+	</springProfile>
+
+</configuration>
